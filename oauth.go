@@ -246,7 +246,7 @@ func NewConsumer(consumerKey string, consumerSecret string,
 
 	consumer.signer = &HMACSigner{
 		consumerSecret: consumerSecret,
-		hashFunc:       crypto.SHA1,
+		hashFunc:       crypto.SHA256,
 	}
 
 	return consumer
