@@ -1220,7 +1220,7 @@ func isEscapable(b byte) bool {
 }
 
 func (c *Consumer) requestString(method string, url string, params *OrderedParams) string {
-	result := method + "&" + escape(url) + "&grant_type=client_credentials"
+	result := method + "&" + escape(url) + "&" + escape("grant_type=client_credentials")
 	for pos, key := range params.Keys() {
 		fmt.Printf("Keys in loop = %s \n", key)
 		for innerPos, value := range params.Get(key) {
