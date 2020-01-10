@@ -80,7 +80,7 @@ const (
 )
 
 var HASH_METHOD_MAP = map[crypto.Hash]string{
-	crypto.SHA1:   "SHA1",
+	crypto.SHA1:   "SHA256",
 	crypto.SHA256: "SHA256",
 }
 
