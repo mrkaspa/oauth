@@ -997,7 +997,9 @@ func (*defaultClock) Nanos() int64 {
 
 func (c *Consumer) signRequest(req *request, tokenSecret string) (*request, error) {
 	baseString := c.requestString(req.method, req.url, req.oauthParams)
-	fmt.Printf("BASE STRING %s", baseString)
+	if c.debug {
+		fmt.Printf("BASE STRING %s", baseString)
+	}
 	signature, err := c.signer.Sign(baseString, tokenSecret)
 	if err != nil {
 		return nil, err
@@ -1094,7 +1096,7 @@ func (s *HMACSigner) Debug(enabled bool) {
 }
 
 func (s *HMACSigner) Sign(message string, tokenSecret string) (string, error) {
-	key := escape(s.consumerSecret) + "&" + escape(tokenSecret)
+	key := escape(s.consumerSecret) + "&" // + escape(tokenSecret)
 	if s.debug {
 		fmt.Println("Signing:", message)
 		fmt.Println("Key:", key)
