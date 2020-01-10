@@ -1288,6 +1288,9 @@ func (c *Consumer) httpExecute(
 	req.Body = c.AdditionalBody
 	oauthHdr := "OAuth "
 	for pos, key := range oauthParams.Keys() {
+		if key == "grant_type" {
+			continue
+		}
 		for innerPos, value := range oauthParams.Get(key) {
 			if pos+innerPos > 0 {
 				oauthHdr += ","
@@ -1297,7 +1300,7 @@ func (c *Consumer) httpExecute(
 	}
 	req.Header.Add("Authorization", oauthHdr)
 
-	// Add additional custom headers
+	// Add additional custom headersheaders
 	for key, vals := range c.AdditionalHeaders {
 		for _, val := range vals {
 			req.Header.Add(key, val)
