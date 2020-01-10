@@ -212,6 +212,7 @@ type Consumer struct {
 	// Seeded generators are not reentrant
 	nonceGenerator nonceGenerator
 	signer         signer
+	AdditionalBody io.ReadCloser
 }
 
 func newConsumer(consumerKey string, serviceProvider ServiceProvider, httpClient *http.Client) *Consumer {
@@ -1280,6 +1281,7 @@ func (c *Consumer) httpExecute(
 
 	// Set auth header.
 	req.Header = http.Header{}
+	req.Body = c.AdditionalBody
 	oauthHdr := "OAuth "
 	for pos, key := range oauthParams.Keys() {
 		for innerPos, value := range oauthParams.Get(key) {
