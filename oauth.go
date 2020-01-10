@@ -997,7 +997,7 @@ func (*defaultClock) Nanos() int64 {
 
 func (c *Consumer) signRequest(req *request, tokenSecret string) (*request, error) {
 	baseString := c.requestString(req.method, req.url, req.oauthParams)
-
+	fmt.Printf("BASE STRING %s", baseString)
 	signature, err := c.signer.Sign(baseString, tokenSecret)
 	if err != nil {
 		return nil, err
