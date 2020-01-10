@@ -246,7 +246,7 @@ func NewConsumer(consumerKey string, consumerSecret string,
 
 	consumer.signer = &HMACSigner{
 		consumerSecret: consumerSecret,
-		hashFunc:       crypto.SHA256,
+		hashFunc:       crypto.SHA1,
 	}
 
 	return consumer
@@ -1221,15 +1221,11 @@ func isEscapable(b byte) bool {
 
 func (c *Consumer) requestString(method string, url string, params *OrderedParams) string {
 	result := method + "&" + escape(url) + "&" + escape("grant_type=client_credentials")
-	for pos, key := range params.Keys() {
+	for _, key := range params.Keys() {
 		fmt.Printf("Keys in loop = %s \n", key)
-		for innerPos, value := range params.Get(key) {
+		for _, value := range params.Get(key) {
 			fmt.Printf("Val in loop = %s \n", key)
-			if pos+innerPos == 0 {
-				result += "&"
-			} else {
-				result += escape("&")
-			}
+			result += escape("&")
 			result += escape(fmt.Sprintf("%s=%s", key, value))
 		}
 	}
