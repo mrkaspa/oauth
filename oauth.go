@@ -80,7 +80,7 @@ const (
 )
 
 var HASH_METHOD_MAP = map[crypto.Hash]string{
-	crypto.SHA1:   "SHA256",
+	crypto.SHA1:   "SHA1",
 	crypto.SHA256: "SHA256",
 }
 
@@ -1096,7 +1096,7 @@ func (s *HMACSigner) Debug(enabled bool) {
 }
 
 func (s *HMACSigner) Sign(message string, tokenSecret string) (string, error) {
-	key := escape(s.consumerSecret) + "&" // + escape(tokenSecret)
+	key := escape(s.consumerSecret) + "&" + escape(tokenSecret)
 	if s.debug {
 		fmt.Println("Signing:", message)
 		fmt.Println("Key:", key)
